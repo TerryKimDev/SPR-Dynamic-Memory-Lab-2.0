@@ -1,0 +1,17 @@
+Write your debugging steps and thought process here (This is part of your grade)
+I ran the program to find the mem leak in the output
+entered the value I gathered into mem leak line then call stacked to where it occured
+first one I fixed is the store.cpp and put in a delete line for m_NumInventories
+then made the deconstructor function for the store, first declared in store.h then called in store, that would delete the array for m_Inventories;
+
+Second one I fixed was Item.cpp
+deleting the first instance of m_value that was initialized in Item function. this instance would not be used at all so its safe to delete right after.
+then delete value in print function after it was used.
+finally made a deconstructor function for the second m_value instance since the value in this would be used in the print function so I could not delete directly after it was made.
+gone back to the store.cpp and noticed a new for s so I made a delete for that after it was used to print;
+
+went to inventory.h
+simply made a delete line within the for loop in the print function so that it would delete the m_Items instance after the print
+and then delete nSize
+
+With all that done the program would give me a pass without missing or changing any of the values for the Inventory and resulting with a 0 for the memory use.
